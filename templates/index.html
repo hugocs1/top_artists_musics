@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<!-- Search form -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 text-center" style="margin-top: 10%; margin-left:25%">
+				<form method="post" action="{% url 'search' %}">
+					{% csrf_token %}
+
+					<div class="form-group">
+						<label>Search artist's top 10 musics</label>
+					    <input class="form-control" name="term" placeholder="Artist name">
+					</div>
+
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+		</div>
+		{% if data %}
+			<div class="row" style="margin-top:5%">
+				<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">Music name</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	{% for music in data %}
+					    <tr>
+					      <th scope="row">{{ forloop.counter }}</th>
+					      <td>{{ music }}</td>
+					    </tr>
+					{% endfor %}
+				  </tbody>
+				</table>
+			</div>
+		{% endif %}
+	</div>
+
+{% endblock %}
